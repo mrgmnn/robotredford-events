@@ -1,0 +1,48 @@
+{
+  "name": "robotredford-events",
+  "version": "1.0.0",
+  "description": "A wrapper library for socket.io to receive events from RobotRedford",
+  "main:": "lib/index.js",
+  "global": "./dist/global/robotredford.js",
+  "lib": "./dist/lib/robotredford.js",
+  "main": "./dist/lib/robotredford.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./dist",
+    "prepack": "npm run build",
+    "watch": "parcel watch",
+    "build": "npm run clean && parcel build",
+    "prepublish": "npm run build && npm run copy-files",
+    "copy-files": "cp package.json package-lock.json ./dist"
+  },
+  "author": "Bjoern Mergemann",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.8.2",
+    "@parcel/transformer-typescript-types": "^2.8.2",
+    "parcel": "^2.8.2",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.5.4"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "targets": {
+    "global": {
+      "context": "browser",
+      "outputFormat": "global",
+      "source": "src/browser.ts"
+    },
+    "lib": {
+      "context": "browser",
+      "outputFormat": "esmodule",
+      "isLibrary": true,
+      "source": "src/index.ts",
+      "engines": {
+        "browsers": "> 0.5%, last 2 versions, not dead"
+      }
+    }
+  }
+}

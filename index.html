@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My First Parcel App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="./dist/main.mjs"></script>
+    <script>
+      const bot = new RobotRedford('7KLStPve21v5pHvmcScTM0ISoDgW6fYd');
+      const bla = bot.on('test', (payload) => {
+        console.log('test received', payload);
+      });
+      bot.emit('test', {
+        1: 1,
+        2: 2,
+        3: 3,
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+</html>
