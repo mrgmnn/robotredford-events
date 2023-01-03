@@ -1,6 +1,6 @@
 import { io, Socket, SocketOptions, ManagerOptions } from 'socket.io-client';
 
-const SOCKET_URL = 'ws://localhost:3030';
+const SOCKET_URL = process.env.SOCKET_URL;
 const SOCKET_CONFIG: Partial<ManagerOptions & SocketOptions> = {
   reconnectionAttempts: 50,
 };
@@ -25,10 +25,15 @@ export class RobotRedford {
     this.socket.on('user', (payload) => {
       this.#onUser(payload);
     });
+    this.socket.on('follow', (payload) => {
+      this.#emit('follow', payload);
+    });
+    this.socket.on('subscribe', (payload) => {
+      this.#emit('subscribe', payload);
+    });
   }
 
   #onUser(payload): void {
-    console.log('payload', payload);
     this.#join(payload?.username);
   }
 
@@ -55,7 +60,7 @@ export class RobotRedford {
     }
   }
 
-  emit(event, ...args) {
+  #emit(event, ...args) {
     if (typeof this.events[event] === 'object') {
       this.events[event].forEach((listener) => listener.apply(this, args));
     }

@@ -12,8 +12,7 @@
     "prepack": "npm run build",
     "watch": "parcel watch",
     "build": "npm run clean && parcel build",
-    "prepublish": "npm run build && npm run copy-files",
-    "copy-files": "cp package.json package-lock.json ./dist"
+    "prepublish": "npm run build"
   },
   "author": "Bjoern Mergemann",
   "license": "ISC",
@@ -33,13 +32,17 @@
     "global": {
       "context": "browser",
       "outputFormat": "global",
-      "source": "src/browser.ts"
+      "source": "src/browser.ts",
+      "engines": {
+        "browsers": "> 0.5%, last 2 versions, not dead"
+      }
     },
     "lib": {
       "context": "browser",
       "outputFormat": "esmodule",
+      "source": "src/lib.ts",
       "isLibrary": true,
-      "source": "src/index.ts",
+      "optimize": true,
       "engines": {
         "browsers": "> 0.5%, last 2 versions, not dead"
       }
